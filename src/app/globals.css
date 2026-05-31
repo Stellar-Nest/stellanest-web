@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: #e2e8f0;
+  --background: #0f172a;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+/* Order book styling */
+.bid-row {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%);
+}
+.ask-row {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.1) 0%, transparent 100%);
+}
+
+/* Pulse animation for live prices */
+@keyframes price-up {
+  0% { color: #22c55e; }
+  100% { color: inherit; }
+}
+@keyframes price-down {
+  0% { color: #ef4444; }
+  100% { color: inherit; }
+}
+.price-flash-up {
+  animation: price-up 1s ease-out;
+}
+.price-flash-down {
+  animation: price-down 1s ease-out;
+}
