@@ -2,6 +2,8 @@
 
 Next.js 14+ trading dashboard for the Stellanest real estate index trading platform.
 
+**Live:** [stellarnest.netlify.app](https://stellarnest.netlify.app/)
+
 ## Stack
 
 - **Framework:** Next.js 14+ (App Router)
