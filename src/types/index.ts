@@ -86,7 +86,7 @@ export interface DataSource {
   last_value: number;
 }
 
-export interface CityDetail extends CityIndex {
+export interface CityDetail extends Omit<CityIndex, 'data_sources'> {
   data_sources: DataSource[];
   composition?: Record<string, number>;
 }
