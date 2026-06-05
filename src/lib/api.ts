@@ -1,3 +1,5 @@
+import type { CityIndex, CityDetail, IndexCandle, Position, Order, OrderBook, Trade } from '@/types';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 const WS_URL = process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8080/ws';
 
@@ -25,63 +27,63 @@ function authHeaders(token: string) {
 // --- Indices ---
 
 export const indices = {
-  list: () => fetchAPI<any[]>('/api/v1/indices'),
+  list: () => fetchAPI<CityIndex[]>('/api/v1/indices'),
 
-  get: (city: string) => fetchAPI<any>(`/api/v1/indices/${city}`),
+  get: (city: string) => fetchAPI<CityDetail>(`/api/v1/indices/${city}`),
 
   history: (city: string, period = '1y', interval = '1d') =>
-    fetchAPI<any[]>(`/api/v1/indices/${city}/history?period=${period}&interval=${interval}`),
+    fetchAPI<IndexCandle[]>(`/api/v1/indices/${city}/history?period=${period}&interval=${interval}`),
 
   compare: (cities: string, period = '1y') =>
-    fetchAPI<any>(`/api/v1/indices/compare?cities=${cities}&period=${period}`),
+    fetchAPI<CityIndex[]>(`/api/v1/indices/compare?cities=${cities}&period=${period}`),
 };
 
 // --- Positions ---
 
 export const positions = {
   open: (token: string, data: { city: string; direction: string; collateral: number; leverage: number }) =>
-    fetchAPI<any>('/api/v1/positions/open', {
+    fetchAPI<Position>('/api/v1/positions/open', {
       method: 'POST',
       headers: authHeaders(token),
       body: JSON.stringify(data),
     }),
 
   close: (token: string, id: string) =>
-    fetchAPI<any>(`/api/v1/positions/${id}/close`, {
+    fetchAPI<Position>(`/api/v1/positions/${id}/close`, {
       method: 'POST',
       headers: authHeaders(token),
     }),
 
   my: (token: string) =>
-    fetchAPI<any[]>('/api/v1/positions/my', { headers: authHeaders(token) }),
+    fetchAPI<Position[]>('/api/v1/positions/my', { headers: authHeaders(token) }),
 
   get: (token: string, id: string) =>
-    fetchAPI<any>(`/api/v1/positions/${id}`, { headers: authHeaders(token) }),
+    fetchAPI<Position>(`/api/v1/positions/${id}`, { headers: authHeaders(token) }),
 };
 
 // --- Orders ---
 
 export const orders = {
   create: (token: string, data: { city: string; side: string; type: string; price?: number; size: number }) =>
-    fetchAPI<any>('/api/v1/orders', {
+    fetchAPI<Order>('/api/v1/orders', {
       method: 'POST',
       headers: authHeaders(token),
       body: JSON.stringify(data),
     }),
 
   cancel: (token: string, id: string) =>
-    fetchAPI<any>(`/api/v1/orders/${id}`, {
+    fetchAPI<Order>(`/api/v1/orders/${id}`, {
       method: 'DELETE',
       headers: authHeaders(token),
     }),
 
   my: (token: string) =>
-    fetchAPI<any[]>('/api/v1/orders/my', { headers: authHeaders(token) }),
+    fetchAPI<Order[]>('/api/v1/orders/my', { headers: authHeaders(token) }),
 
-  book: (city: string) => fetchAPI<any>(`/api/v1/orders/book/${city}`),
+  book: (city: string) => fetchAPI<OrderBook>(`/api/v1/orders/book/${city}`),
 
   recent: (city: string, limit = 50) =>
-    fetchAPI<any[]>(`/api/v1/orders/recent/${city}?limit=${limit}`),
+    fetchAPI<Trade[]>(`/api/v1/orders/recent/${city}?limit=${limit}`),
 };
 
 // --- Auth ---
@@ -105,7 +107,7 @@ export const auth = {
 
 // --- WebSocket ---
 
-export function createWebSocket(onMessage: (data: any) => void): WebSocket {
+export function createWebSocket(onMessage: (data: unknown) => void): WebSocket {
   const ws = new WebSocket(WS_URL);
 
   ws.onmessage = (event) => {
