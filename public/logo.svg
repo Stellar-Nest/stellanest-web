@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- House shape with star accent -->
+  <path d="M24 4L4 22h6v18h28V22h6L24 4z" fill="#1e293b" stroke="#60a5fa" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Roof highlight -->
+  <path d="M24 4L4 22h6L24 10l14 12h6L24 4z" fill="#2563eb" opacity="0.6"/>
+  <!-- Star in the roof peak -->
+  <path d="M24 8l1.8 3.6 4 .6-2.9 2.8.7 4-3.6-1.9-3.6 1.9.7-4-2.9-2.8 4-.6L24 8z" fill="#60a5fa"/>
+  <!-- Window / door -->
+  <rect x="19" y="26" width="10" height="14" rx="2" fill="#0f172a" stroke="#60a5fa" stroke-width="1.5"/>
+  <!-- Window pane -->
+  <line x1="24" y1="26" x2="24" y2="40" stroke="#60a5fa" stroke-width="1" opacity="0.5"/>
+  <line x1="19" y1="33" x2="29" y2="33" stroke="#60a5fa" stroke-width="1" opacity="0.5"/>
+</svg>
