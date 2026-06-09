@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Stellanest — Real Estate Index Trading on Stellar',
   description:
     'Trade synthetic real estate indices for cities worldwide on Stellar. Long, short, and hedge city real estate markets with 5-second settlement.',
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -16,10 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="min-h-screen bg-surface text-slate-200 antialiased">
         <header className="border-b border-surface-lighter px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl font-bold text-primary-400">⌂</span>
+          <a href="/" className="flex items-center gap-3 hover:opacity-80 transition">
+            <Image src="/logo.svg" alt="Stellanest" width={36} height={36} priority />
             <h1 className="text-xl font-semibold">Stellanest</h1>
-          </div>
+          </a>
           <nav className="flex items-center gap-6 text-sm">
             <a href="/trade/NYC" className="hover:text-primary-400 transition">
               Trade
