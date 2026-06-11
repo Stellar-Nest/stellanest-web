@@ -20,7 +20,12 @@ export function useWebSocket({
   const wsRef = useRef<WebSocket | null>(null);
   const reconnectAttempts = useRef(0);
   const reconnectTimer = useRef<NodeJS.Timeout | null>(null);
+  const onMessageRef = useRef(onMessage);
   const [status, setStatus] = useState<ConnectionStatus>('disconnected');
+
+  useEffect(() => {
+    onMessageRef.current = onMessage;
+  }, [onMessage]);
 
   const connect = useCallback(() => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;
@@ -36,7 +41,7 @@ export function useWebSocket({
     ws.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        onMessage?.(data);
+        onMessageRef.current?.(data);
       } catch {
         // Ignore parse errors for non-JSON messages
       }
@@ -60,7 +65,7 @@ export function useWebSocket({
     };
 
     wsRef.current = ws;
-  }, [url, onMessage, reconnectInterval, maxReconnectAttempts]);
+  }, [url, reconnectInterval, maxReconnectAttempts]);
 
   const disconnect = useCallback(() => {
     if (reconnectTimer.current) {
